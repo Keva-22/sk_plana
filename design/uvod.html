@@ -28,14 +28,19 @@
   --blue:#1e66a8;
   --blue-lift:#2a6db5;
   --blue-deep:#123f70;
-  --gold:#ddb837;
-  --gold-ink:#8f6f10;
-  --gold-lite:#f8e08a;
+  --gold:#d9a46a;
+  --gold-ink:#8a5d2a;
+  --gold-lite:#edc99f;
 
-  /* červená — akcent „teď" */
-  --red:#cc2130;
-  --red-ink:#b01a28;
-  --red-lift:#e03544;
+  /* červená — odstín ze znaku klubu */
+  --red:#cc3c2a;
+  --red-ink:#a83220;
+  --red-lift:#e04a38;
+
+  /* písková ze znaku — rámeček a písmena */
+  --sand:#d9a46a;
+  --sand-ink:#8a5d2a;
+  --sand-lite:#edc99f;
 
   /* papír */
   --paper:#f4f7fb;
@@ -101,7 +106,7 @@ a{color:inherit;text-decoration:none}
 .kitline i{flex:1}
 .kitline i:nth-child(1){background:var(--blue)}
 .kitline i:nth-child(2){background:var(--red);flex:0 0 22%}
-.kitline i:nth-child(3){background:var(--blue-deep);flex:0 0 12%}
+.kitline i:nth-child(3){background:var(--sand);flex:0 0 12%}
 
 /* ═══════════════════════════════════════════════════════════
    PRUH „NÁVRH“
@@ -179,9 +184,9 @@ a{color:inherit;text-decoration:none}
   position:absolute;top:-20%;bottom:-20%;
   transform:skewX(-19deg);transform-origin:top;
 }
-.hero__sash i:nth-child(1){right:16%;width:15%;background:#cc213026}
+.hero__sash i:nth-child(1){right:16%;width:15%;background:#cc3c2a2e}
 .hero__sash i:nth-child(2){right:8%;width:4%;background:#ffffff1c}
-.hero__sash i:nth-child(3){right:-4%;width:11%;background:#cc21301f}
+.hero__sash i:nth-child(3){right:-4%;width:11%;background:#cc3c2a24}
 .hero__fade{
   position:absolute;inset:auto 0 0 0;height:38%;z-index:-1;
   background:linear-gradient(180deg,transparent,#0d326066);
@@ -328,7 +333,7 @@ a{color:inherit;text-decoration:none}
 .art svg.lines{position:absolute;inset:0;width:100%;height:100%;opacity:.4}
 .art i.sash{
   position:absolute;top:-25%;bottom:-25%;right:9%;width:13%;
-  background:#cc213040;transform:skewX(-19deg);
+  background:#cc3c2a47;transform:skewX(-19deg);
 }
 .art i.sash + i.sash{right:2%;width:3.5%;background:#ffffff26}
 .art span{
@@ -404,7 +409,7 @@ a{color:inherit;text-decoration:none}
   cursor:pointer;transition:.22s;
 }
 .btn:hover{border-color:var(--blue);color:var(--blue);background:var(--wash)}
-.btn--red{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 10px 22px -14px #cc2130cc}
+.btn--red{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 10px 22px -14px #cc3c2acc}
 .btn--red:hover{background:var(--red-ink);border-color:var(--red-ink);color:#fff}
 
 /* ═══════════════════════════════════════════════════════════
@@ -457,25 +462,50 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
 .squad__comp{font-size:.78rem;color:var(--ink-3);letter-spacing:.05em}
 
 /* ═══════════════════════════════════════════════════════════
-   ÚSPĚCHY
+   ÚSPĚCHY — poháry sezóny 2025/2026
    ═══════════════════════════════════════════════════════════ */
-.honours{border-block:1px solid var(--rule-2);background:linear-gradient(90deg,#ddb83726,transparent 42%,#ddb83726),var(--paper-2)}
-.honours__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
-.hon{
-  padding:clamp(1.6rem,4vw,2.5rem) clamp(1.1rem,2.5vw,1.9rem);
-  border-left:1px solid var(--rule);display:flex;flex-direction:column;gap:.7rem;
+.honours{
+  border-block:1px solid var(--rule-2);
+  background:linear-gradient(180deg,#fbf6ef,var(--paper-2) 55%);
+  padding-block:clamp(2.75rem,6vw,4.5rem);
 }
-.hon:first-child{border-left:none}
-.hon__yr{
-  font-family:var(--ff-display);font-size:clamp(2rem,4.6vw,3rem);
-  line-height:.85;letter-spacing:.015em;color:var(--gold-ink);font-variant-numeric:tabular-nums;
+.trophies{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));
+  gap:1px;background:var(--rule-2);
+  border:1px solid var(--rule-2);border-radius:var(--r);overflow:hidden;
 }
-.hon__r{width:30px;height:3px;background:var(--gold)}
-.hon__w{font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);line-height:1.4}
-@media (max-width:660px){
-  .hon{border-left:none;border-top:1px solid var(--rule)}
-  .hon:first-child{border-top:none}
+.tr{
+  background:var(--paper-2);padding:1.3rem 1.4rem;
+  display:flex;gap:1.1rem;align-items:flex-start;position:relative;
+  transition:background .22s;
 }
+.tr:hover{background:#fdfaf6}
+.tr::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--sand)}
+.tr--2::before{background:#9fadc0}
+.tr--3::before{background:#c08a5c}
+.tr__place{
+  font-family:var(--ff-display);font-size:2.4rem;line-height:.78;
+  color:var(--sand-ink);min-width:2.1rem;font-variant-numeric:tabular-nums;
+}
+.tr--2 .tr__place{color:#69788c}
+.tr--3 .tr__place{color:#9c6540}
+.tr__comp{
+  font-family:var(--ff-display);font-size:1.3rem;line-height:1.02;
+  text-transform:uppercase;letter-spacing:.02em;margin:0 0 .35rem;color:var(--ink);
+}
+.tr__meta{margin:0;font-size:.78rem;color:var(--ink-3);line-height:1.45}
+.history{
+  margin-top:1.5rem;display:flex;flex-wrap:wrap;gap:.5rem 2rem;
+  font-size:.82rem;color:var(--ink-2);
+}
+.history b{color:var(--sand-ink);font-weight:700}
+
+/* znak jako vodoznak v hero */
+.hero__crest{
+  position:absolute;right:2%;top:46%;transform:translateY(-50%);
+  width:min(34%,380px);opacity:.1;z-index:-1;pointer-events:none;
+}
+@media (max-width:820px){.hero__crest{opacity:.07;right:-6%;width:60%}}
 
 /* ═══════════════════════════════════════════════════════════
    AREÁL
@@ -501,11 +531,11 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
    ═══════════════════════════════════════════════════════════ */
 .recruit{
   position:relative;overflow:hidden;
-  background:linear-gradient(150deg,#d3273a,#cc2130 45%,#9d1622 100%);
+  background:linear-gradient(150deg,#d9482f,#cc3c2a 45%,#9c2617 100%);
   color:#fff;
 }
 .recruit i.sash{position:absolute;top:-30%;bottom:-30%;right:12%;width:9%;background:#ffffff1a;transform:skewX(-19deg)}
-.recruit i.sash+i.sash{right:4%;width:3%;background:#ffffff26}
+.recruit i.sash+i.sash{right:4%;width:3%;background:#ffffff2e}
 .recruit__in{
   position:relative;z-index:2;
   display:flex;align-items:center;justify-content:space-between;
@@ -516,7 +546,7 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
   font-family:var(--ff-display);font-size:clamp(1.8rem,4.2vw,2.9rem);
   line-height:.92;text-transform:uppercase;letter-spacing:.015em;margin:0 0 .5rem;
 }
-.recruit p{margin:0;color:#ffecee;font-size:.95rem;max-width:46ch}
+.recruit p{margin:0;color:#fff2f0;font-size:.95rem;max-width:46ch}
 .btn--white{background:#fff;border-color:#fff;color:var(--red-ink)}
 .btn--white:hover{background:#ffe9eb;border-color:#ffe9eb;color:var(--red-ink)}
 
@@ -580,16 +610,31 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
 
 <div class="flag">Návrh nové podoby webu — nejde o ostrý web. Údaje s <i>tečkovaným podtržením</i> jsou ukázkové.</div>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="crestSym" viewBox="0 0 100 118">
+    <path d="M 8 15 Q 8 6 18 6 Q 34 6 50 15 Q 66 6 82 6 Q 92 6 92 15 L 92 60 C 92 90 74 104 50 113 C 26 104 8 90 8 60 Z" fill="#d9a46a"/>
+    <clipPath id="crestClip"><path d="M 15.5 20 Q 15.5 13.5 22.5 13.5 Q 35.5 13.5 50 21.5 Q 64.5 13.5 77.5 13.5 Q 84.5 13.5 84.5 20 L 84.5 59.5 C 84.5 84.5 69.5 96.5 50 104.5 C 30.5 96.5 15.5 84.5 15.5 59.5 Z"/></clipPath>
+    <g clip-path="url(#crestClip)">
+      <polygon points="0,0 100,0 100,34 0,62" fill="#3160a8"/>
+      <polygon points="0,62 100,34 100,58 0,86" fill="#d8442f"/>
+      <polygon points="0,86 100,58 100,120 0,120" fill="#ffffff"/>
+    </g>
+    <g fill="#d9a46a" font-family="Chivo, Arial, sans-serif" font-weight="900" text-anchor="middle">
+      <text x="55" y="31" font-size="13">1938</text>
+      <text x="33" y="61" font-size="31">S</text>
+      <text x="50" y="79" font-size="16.5" letter-spacing="1"
+            transform="rotate(-15 50 74)">PLAN&#193;</text>
+      <text x="57" y="101" font-size="27">K</text>
+    </g>
+  </symbol>
+  <symbol id="crestGhost" viewBox="0 0 100 118">
+    <path d="M 8 15 Q 8 6 18 6 Q 34 6 50 15 Q 66 6 82 6 Q 92 6 92 15 L 92 60 C 92 90 74 104 50 113 C 26 104 8 90 8 60 Z" fill="currentColor"/>
+  </symbol>
+</svg>
 <header class="top">
   <div class="wrap top__in">
     <a class="mark" href="#">
-      <svg class="crest" viewBox="0 0 34 39" aria-hidden="true">
-        <path d="M1.5 2h31v21c0 7.4-7 11.9-15.5 14C8.5 34.9 1.5 30.4 1.5 23V2z" fill="#1e66a8" stroke="#0c172833"/>
-        <path d="M17 2h15.5v21c0 7.4-7 11.9-15.5 14z" fill="#cc2130" opacity=".9"/>
-        <path d="M1.5 2h31v7h-31z" fill="#ffffff2e"/>
-        <text x="17" y="21" text-anchor="middle" fill="#fff" font-family="Bebas Neue,sans-serif" font-size="11">SKP</text>
-        <text x="17" y="31" text-anchor="middle" fill="#ffffffd9" font-family="Bebas Neue,sans-serif" font-size="7">1938</text>
-      </svg>
+      <svg class="crest" viewBox="0 0 100 118" aria-hidden="true"><use href="#crestSym"/></svg>
       <span class="mark__txt">SK Planá<em>.</em></span>
     </a>
     <nav class="mainnav">
@@ -619,6 +664,7 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
 <!-- ══════════ HERO ══════════ -->
 <section class="hero">
   <div class="hero__sash" aria-hidden="true"><i></i><i></i><i></i></div>
+  <svg class="hero__crest" viewBox="0 0 100 118" aria-hidden="true" style="color:#fff"><use href="#crestGhost"/></svg>
   <svg class="hero__pitch" viewBox="0 0 1600 620" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
     <defs>
       <linearGradient id="pl" x1="0" y1="0" x2="0" y2="1">
@@ -704,8 +750,10 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
 <!-- ══════════ AKTUALITY ══════════ -->
 <section class="sec sec--afterhero wrap" id="aktuality">
   <p class="note rise">
-    <b>K obsahu:</b> titulky článků a úspěchy vycházejí ze snímku současného webu.
-    Skóre, soupeři, termíny, tabulka a fotografie zatím doložené nejsou — jsou označené tečkovaně.
+    <b>K obsahu:</b> znak, poháry sezóny 2025/2026, partneři a barvy dresů jsou odečtené
+    z fotografií, které jste poslal; titulky článků ze snímku současného webu.
+    Skóre, soupeři, termíny a tabulka doložené nejsou — jsou označené tečkovaně.
+    Fotografie zatím nejsou vložené (soubory nedorazily, jen náhledy).
   </p>
 
   <div class="sec__head rise">
@@ -824,13 +872,67 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
 </section>
 
 <!-- ══════════ ÚSPĚCHY ══════════ -->
-<section class="honours" aria-label="Úspěchy klubu">
+<section class="honours" id="uspechy">
   <div class="wrap">
-    <div class="honours__grid">
-      <div class="hon rise"><span class="hon__yr">2013/14</span><span class="hon__r"></span><span class="hon__w">Vítěz okresního přeboru</span></div>
-      <div class="hon rise"><span class="hon__yr">2015/16</span><span class="hon__r"></span><span class="hon__w">Vítěz I.B třídy</span></div>
-      <div class="hon rise"><span class="hon__yr">2021/22</span><span class="hon__r"></span><span class="hon__w">Finalista poháru KFS</span></div>
+    <div class="sec__head rise">
+      <div>
+        <span class="label" style="color:var(--sand-ink)">Sezóna 2025/2026</span>
+        <h2 class="sec__title" style="margin-top:.6rem">Šest pohárů<span>.</span></h2>
+      </div>
+      <a class="lnk" href="#">Všechny úspěchy →</a>
     </div>
+
+    <div class="trophies rise">
+      <article class="tr tr--1">
+        <span class="tr__place">1.</span>
+        <div>
+          <h3 class="tr__comp">Pohár dorostu</h3>
+          <p class="tr__meta">OFS České Budějovice · 2025/2026</p>
+        </div>
+      </article>
+      <article class="tr tr--1">
+        <span class="tr__place">1.</span>
+        <div>
+          <h3 class="tr__comp">I.A třída mladších žáků</h3>
+          <p class="tr__meta">2025/2026</p>
+        </div>
+      </article>
+      <article class="tr tr--1">
+        <span class="tr__place">1.</span>
+        <div>
+          <h3 class="tr__comp">Okresní soutěž mladších žáků</h3>
+          <p class="tr__meta">OFS České Budějovice · 2025/2026</p>
+        </div>
+      </article>
+      <article class="tr tr--1">
+        <span class="tr__place">1.</span>
+        <div>
+          <h3 class="tr__comp">Zimní liga starší přípravky</h3>
+          <p class="tr__meta">2026</p>
+        </div>
+      </article>
+      <article class="tr tr--2">
+        <span class="tr__place">2.</span>
+        <div>
+          <h3 class="tr__comp">Zimní liga mladších žáků</h3>
+          <p class="tr__meta">Accolade · 2026</p>
+        </div>
+      </article>
+      <article class="tr tr--3">
+        <span class="tr__place">3.</span>
+        <div>
+          <h3 class="tr__comp">Zimní liga dorostu</h3>
+          <p class="tr__meta"><span class="q">2026</span></p>
+        </div>
+      </article>
+    </div>
+
+    <p class="history rise">
+      <span>Z historie klubu:</span>
+      <span><b>2013/14</b> vítěz okresního přeboru</span>
+      <span><b>2015/16</b> vítěz I.B třídy</span>
+      <span><b>2021/22</b> finalista poháru KFS</span>
+    </p>
   </div>
 </section>
 
@@ -848,7 +950,7 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
           <rect x="40" y="127" width="20" height="46"/>
           <rect x="340" y="127" width="20" height="46"/>
         </g>
-        <g fill="#cc2130"><circle cx="40" cy="45" r="4"/><circle cx="360" cy="45" r="4"/><circle cx="40" cy="255" r="4"/><circle cx="360" cy="255" r="4"/></g>
+        <g fill="#cc3c2a"><circle cx="40" cy="45" r="4"/><circle cx="360" cy="45" r="4"/><circle cx="40" cy="255" r="4"/><circle cx="360" cy="255" r="4"/></g>
         <g fill="#ddb83733"><path d="M40 45 L120 150 L40 150Z"/><path d="M360 45 L280 150 L360 150Z"/></g>
       </svg>
     </div>
@@ -865,6 +967,7 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
         <li><b>Tribuna</b><span class="num">120 míst</span></li>
         <li><b>Zázemí</b><span>Kabiny, klubovna, regenerace</span></li>
         <li><b>Občerstvení</b><span>V areálu</span></li>
+        <li><b>Dresy</b><span>Muži bílá, mládež modrá</span></li>
       </ul>
       <p style="margin-top:1.6rem"><a class="btn" href="#">Jak se k nám dostat</a></p>
     </div>
@@ -892,12 +995,12 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
     <a class="lnk" href="#">Staňte se partnerem →</a>
   </div>
   <div class="partners rise">
+    <span class="pt pt--real">Haier</span>
+    <span class="pt pt--real">Heluz Group</span>
+    <span class="pt pt--real">Accolade</span>
+    <span class="pt pt--real">CB Auto</span>
+    <span class="pt pt--real">Viton</span>
     <span class="pt pt--real">Typodesign</span>
-    <span class="pt q">Partner</span>
-    <span class="pt q">Partner</span>
-    <span class="pt q">Partner</span>
-    <span class="pt q">Partner</span>
-    <span class="pt q">Partner</span>
   </div>
 </section>
 
@@ -907,13 +1010,7 @@ table.stand{width:100%;border-collapse:collapse;min-width:560px;font-variant-num
     <div class="foot__g">
       <div>
         <a class="mark" href="#" style="margin-bottom:1.1rem">
-          <svg class="crest" viewBox="0 0 34 39" aria-hidden="true">
-            <path d="M1.5 2h31v21c0 7.4-7 11.9-15.5 14C8.5 34.9 1.5 30.4 1.5 23V2z" fill="#1e66a8" stroke="#ffffff33"/>
-            <path d="M17 2h15.5v21c0 7.4-7 11.9-15.5 14z" fill="#cc2130" opacity=".9"/>
-            <path d="M1.5 2h31v7h-31z" fill="#ffffff1f"/>
-            <text x="17" y="21" text-anchor="middle" fill="#fff" font-family="Bebas Neue,sans-serif" font-size="11">SKP</text>
-            <text x="17" y="31" text-anchor="middle" fill="#ffffffd9" font-family="Bebas Neue,sans-serif" font-size="7">1938</text>
-          </svg>
+          <svg class="crest" viewBox="0 0 100 118" aria-hidden="true"><use href="#crestSym"/></svg>
           <span class="mark__txt">SK Planá<em>.</em></span>
         </a>
         <p style="font-size:.86rem;max-width:34ch;margin:0">
