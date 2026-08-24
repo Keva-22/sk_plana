@@ -1,0 +1,1066 @@
+<title>Modrý balet z Plané</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Asap:wght@400..700&display=swap">
+
+<style>
+/* ============================================================
+   SK PLANÁ — návrh úvodní stránky
+   Paleta odvozena z klubového schématu __colors-moje.css
+   ============================================================ */
+
+:root{
+  /* --- klubové barvy (ze souboru __colors-moje.css) --- */
+  --navy:#081224;
+  --slate:#262f3e;
+  --blue:#1e66a8;
+  --blue-lift:#2a6db5;
+  --gold:#ddb837;
+
+  /* --- světlá paleta (výchozí) --- */
+  --bg:#f7f9fc;
+  --surface:#ffffff;
+  --surface-2:#eef2f8;
+  --ink:#0d1726;
+  --ink-2:#4a5568;
+  --ink-3:#78849a;
+  --line:#dde4ef;
+  --line-strong:#c3cede;
+
+  /* --- pruh zápasů: tmavý v obou režimech (klubová chrome) --- */
+  --band:#081224;
+  --band-2:#101d33;
+  --band-ink:#ffffff;
+  --band-ink-2:#93a1b8;
+  --band-line:#22334f;
+
+  /* --- funkční (výsledky) --- */
+  --win:#3ea76b;
+  --draw:#c9a227;
+  --loss:#d2544f;
+
+  --radius:4px;
+  --maxw:1280px;
+  --pad:clamp(1rem,4vw,2rem);
+
+  --ff-display:"Archivo","Archivo Fallback",system-ui,sans-serif;
+  --ff-body:"Asap","Asap Fallback",system-ui,sans-serif;
+}
+
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0a1120;
+    --surface:#111c30;
+    --surface-2:#16233a;
+    --ink:#eef3fb;
+    --ink-2:#a9b6cc;
+    --ink-3:#7d8ba4;
+    --line:#22314c;
+    --line-strong:#2e4062;
+    --band:#060e1c;
+    --band-2:#0d1729;
+    --band-line:#1d2c44;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0a1120;
+  --surface:#111c30;
+  --surface-2:#16233a;
+  --ink:#eef3fb;
+  --ink-2:#a9b6cc;
+  --ink-3:#7d8ba4;
+  --line:#22314c;
+  --line-strong:#2e4062;
+  --band:#060e1c;
+  --band-2:#0d1729;
+  --band-line:#1d2c44;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--ff-body);
+  font-size:clamp(1rem,.96rem + .2vw,1.0625rem);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+h1,h2,h3,h4{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 112;
+  line-height:1.05;
+  text-wrap:balance;
+  margin:0;
+  letter-spacing:-.01em;
+}
+
+a{color:inherit}
+
+.wrap{width:100%;max-width:var(--maxw);margin-inline:auto;padding-inline:var(--pad)}
+
+.eyebrow{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 118;
+  font-weight:700;
+  font-size:.6875rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+:where(a,button,input,summary):focus-visible{
+  outline:3px solid var(--blue-lift);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* hodnoty, které nejsou doložené = tečkovaně */
+.demo{
+  border-bottom:2px dotted currentColor;
+  opacity:.96;
+}
+
+/* ============================================================
+   HLAVIČKA
+   ============================================================ */
+.topbar{
+  background:var(--band);
+  color:var(--band-ink);
+  border-bottom:1px solid var(--band-line);
+  position:relative;
+  z-index:5;
+}
+.topbar__inner{
+  display:flex;
+  align-items:center;
+  gap:1.25rem;
+  min-height:72px;
+  padding-block:.75rem;
+}
+.brand{display:flex;align-items:center;gap:.75rem;text-decoration:none;flex:0 0 auto}
+.brand__crest{width:42px;height:48px;flex:0 0 auto}
+.brand__name{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 120;
+  font-weight:800;
+  font-size:1.2rem;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+  line-height:1;
+}
+.brand__sub{
+  display:block;
+  font-family:var(--ff-body);
+  font-weight:500;
+  font-size:.6875rem;
+  letter-spacing:.14em;
+  color:var(--band-ink-2);
+  text-transform:uppercase;
+  margin-top:.28rem;
+}
+
+.nav{margin-left:auto;display:flex;align-items:center;gap:.15rem;flex-wrap:wrap}
+.nav a{
+  text-decoration:none;
+  font-weight:600;
+  font-size:.875rem;
+  color:var(--band-ink-2);
+  padding:.55rem .7rem;
+  border-radius:var(--radius);
+  transition:color .15s,background .15s;
+}
+.nav a:hover{color:#fff;background:#ffffff14}
+.nav a[aria-current]{color:#fff;box-shadow:inset 0 -2px 0 var(--blue-lift)}
+
+.nav--mobile{
+  display:none;
+  gap:.35rem;
+  overflow-x:auto;
+  scrollbar-width:none;
+  padding:.5rem var(--pad) .7rem;
+  background:var(--band);
+  border-bottom:1px solid var(--band-line);
+}
+.nav--mobile::-webkit-scrollbar{display:none}
+.nav--mobile a{white-space:nowrap;flex:0 0 auto}
+
+@media (max-width:900px){
+  .nav{display:none}
+  .nav--mobile{display:flex}
+}
+
+/* pás „návrh" — aby stránku nešlo zaměnit s ostrým webem */
+.proposal{
+  background:var(--blue);
+  color:#fff;
+  font-size:.78rem;
+  font-weight:600;
+  letter-spacing:.03em;
+  text-align:center;
+  padding:.5rem 1rem;
+}
+.proposal b{font-weight:700}
+
+/* ============================================================
+   MATCHDAY — pruh se zápasy (jádro návrhu)
+   ============================================================ */
+.matchday{
+  background:linear-gradient(178deg,var(--band-2),var(--band));
+  color:var(--band-ink);
+  border-bottom:3px solid var(--blue);
+  position:relative;
+  overflow:hidden;
+}
+/* světelný kužel — atmosféra hřiště pod umělým osvětlením */
+.matchday::before{
+  content:"";
+  position:absolute;
+  inset:-40% -10% auto -10%;
+  height:150%;
+  background:radial-gradient(60% 55% at 22% 0%,#1e66a840 0%,transparent 62%),
+             radial-gradient(50% 50% at 84% 8%,#2a6db52e 0%,transparent 60%);
+  pointer-events:none;
+}
+.matchday__grid{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1px 1fr;
+  gap:clamp(1.5rem,3vw,3.5rem);
+  padding-block:clamp(1.75rem,4vw,3rem);
+}
+.matchday__rule{background:var(--band-line)}
+
+.mcard__head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:1rem;
+  margin-bottom:1.1rem;
+  flex-wrap:wrap;
+}
+.mcard__head .eyebrow{color:var(--blue-lift)}
+.mcard__comp{font-size:.75rem;color:var(--band-ink-2);font-weight:500}
+
+.fixture{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:clamp(.75rem,2vw,1.75rem);
+}
+.club{display:flex;flex-direction:column;align-items:center;gap:.6rem;text-align:center;min-width:0}
+.club__mark{
+  width:clamp(44px,7vw,60px);
+  height:clamp(44px,7vw,60px);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 118;
+  font-weight:800;
+  font-size:.8rem;
+  letter-spacing:.04em;
+  background:#ffffff10;
+  border:1px solid var(--band-line);
+  color:#fff;
+  flex:0 0 auto;
+}
+.club--home .club__mark{background:var(--blue);border-color:var(--blue-lift)}
+.club__name{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 108;
+  font-weight:700;
+  font-size:clamp(.9rem,1.6vw,1.05rem);
+  line-height:1.2;
+  overflow-wrap:anywhere;
+}
+
+.score{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 125;
+  font-weight:900;
+  font-size:clamp(2.8rem,8vw,4.75rem);
+  line-height:.85;
+  letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+  gap:clamp(.35rem,1vw,.7rem);
+}
+.score__sep{color:var(--blue-lift);font-size:.55em;transform:translateY(-.08em)}
+
+.kickoff{text-align:center;font-variant-numeric:tabular-nums}
+.kickoff__time{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 122;
+  font-weight:900;
+  font-size:clamp(1.9rem,5vw,2.9rem);
+  line-height:1;
+  letter-spacing:-.02em;
+}
+.kickoff__date{
+  font-size:.8rem;
+  color:var(--band-ink-2);
+  margin-top:.45rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.mcard__foot{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+  margin-top:1.35rem;
+  padding-top:1rem;
+  border-top:1px solid var(--band-line);
+  flex-wrap:wrap;
+  font-size:.8rem;
+  color:var(--band-ink-2);
+}
+
+.form{display:flex;align-items:center;gap:.75rem}
+.form__label{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.form__row{display:flex;gap:.25rem}
+.form__row i{
+  width:22px;height:22px;
+  display:grid;place-items:center;
+  border-radius:3px;
+  font-style:normal;
+  font-family:var(--ff-display);
+  font-weight:800;
+  font-size:.7rem;
+  color:#08111f;
+}
+.f-w{background:var(--win)}
+.f-d{background:var(--draw)}
+.f-l{background:var(--loss);color:#fff}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 112;
+  font-weight:700;
+  font-size:.8125rem;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  text-decoration:none;
+  padding:.7rem 1.15rem;
+  border-radius:var(--radius);
+  background:var(--blue);
+  color:#fff;
+  border:1px solid transparent;
+  transition:background .15s,transform .15s;
+  cursor:pointer;
+}
+.btn:hover{background:var(--blue-lift);transform:translateY(-1px)}
+.btn--ghost{
+  background:transparent;
+  border-color:var(--band-line);
+  color:var(--band-ink);
+}
+.btn--ghost:hover{background:#ffffff12;border-color:var(--blue-lift)}
+.btn--wide{width:100%;justify-content:center}
+
+@media (max-width:820px){
+  .matchday__grid{grid-template-columns:1fr;gap:0}
+  .matchday__rule{height:1px;width:100%;margin-block:1.5rem}
+}
+
+/* ============================================================
+   SEKCE
+   ============================================================ */
+.section{padding-block:clamp(2.75rem,6vw,4.5rem)}
+.section__head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:1rem 2rem;
+  flex-wrap:wrap;
+  margin-bottom:1.75rem;
+}
+.section__title{
+  font-size:clamp(1.65rem,3.4vw,2.4rem);
+  font-weight:800;
+  font-variation-settings:"wdth" 116;
+  text-transform:uppercase;
+  letter-spacing:-.005em;
+}
+.section__title::after{
+  content:"";
+  display:block;
+  width:56px;
+  height:4px;
+  background:var(--blue);
+  margin-top:.7rem;
+}
+.section__link{
+  font-weight:600;
+  font-size:.875rem;
+  color:var(--blue);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+}
+.section__link:hover{border-bottom-color:var(--blue)}
+
+/* filtry */
+.filters{
+  display:flex;
+  gap:.5rem;
+  overflow-x:auto;
+  scrollbar-width:none;
+  padding-bottom:.4rem;
+  margin-bottom:1.75rem;
+}
+.filters::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;
+  font-family:var(--ff-body);
+  font-weight:600;
+  font-size:.8125rem;
+  padding:.5rem .95rem;
+  border-radius:100px;
+  border:1px solid var(--line-strong);
+  background:var(--surface);
+  color:var(--ink-2);
+  cursor:pointer;
+  white-space:nowrap;
+  transition:all .15s;
+}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+.chip[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+
+/* ============================================================
+   AKTUALITY
+   ============================================================ */
+.news{
+  display:grid;
+  grid-template-columns:1.35fr 1fr;
+  gap:clamp(1rem,2.2vw,1.75rem);
+}
+.card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  text-decoration:none;
+  color:inherit;
+  transition:border-color .18s,transform .18s;
+}
+.card:hover{border-color:var(--blue);transform:translateY(-2px)}
+.card:hover .card__title{color:var(--blue)}
+
+/* fotografické pole — dokud nejsou dodány reálné fotky */
+.shot{
+  position:relative;
+  background:
+    linear-gradient(140deg,var(--slate) 0%,var(--navy) 55%,#0c1a30 100%);
+  overflow:hidden;
+}
+.shot::after{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(105deg,#ffffff08 0 2px,transparent 2px 16px),
+    radial-gradient(70% 90% at 30% 10%,#1e66a855,transparent 65%);
+}
+.shot__note{
+  position:absolute;
+  left:.7rem;bottom:.6rem;
+  z-index:2;
+  font-size:.62rem;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  font-weight:600;
+  color:#ffffff7a;
+}
+.card--lead .shot{aspect-ratio:16/10}
+.card--sm .shot{aspect-ratio:16/9}
+
+.card__body{padding:1.15rem 1.25rem 1.35rem;display:flex;flex-direction:column;gap:.6rem;flex:1}
+.tag{
+  align-self:flex-start;
+  font-family:var(--ff-display);
+  font-weight:700;
+  font-size:.66rem;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--blue);
+  background:rgba(30,102,168,.12);
+  background:color-mix(in srgb,var(--blue) 12%,transparent);
+  padding:.28rem .55rem;
+  border-radius:3px;
+}
+.card__title{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 106;
+  font-weight:700;
+  line-height:1.18;
+  transition:color .15s;
+}
+.card--lead .card__title{font-size:clamp(1.3rem,2.6vw,1.85rem)}
+.card--sm .card__title{font-size:1.02rem}
+.card__meta{
+  margin-top:auto;
+  font-size:.78rem;
+  color:var(--ink-3);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+}
+.news__side{display:grid;gap:clamp(1rem,2.2vw,1.75rem);align-content:start}
+
+.news-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(1rem,2.2vw,1.75rem);
+  margin-top:clamp(1rem,2.2vw,1.75rem);
+}
+
+@media (max-width:860px){
+  .news{grid-template-columns:1fr}
+  .news-row{grid-template-columns:1fr}
+}
+
+/* ============================================================
+   TÝMY
+   ============================================================ */
+.teams{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:.85rem;
+}
+.team{
+  position:relative;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:4px solid var(--blue);
+  border-radius:var(--radius);
+  padding:1.1rem 1.15rem;
+  text-decoration:none;
+  color:inherit;
+  display:flex;
+  flex-direction:column;
+  gap:.3rem;
+  transition:background .18s,border-color .18s;
+}
+.team:hover{background:var(--surface-2);border-left-color:var(--gold)}
+.team__name{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 114;
+  font-weight:800;
+  font-size:1.05rem;
+  text-transform:uppercase;
+  letter-spacing:.01em;
+}
+.team__comp{font-size:.8rem;color:var(--ink-3)}
+
+/* ============================================================
+   ÚSPĚCHY — zlatý pruh
+   ============================================================ */
+.honours{
+  background:var(--surface);
+  border-block:1px solid var(--line);
+}
+.honours__grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:0;
+}
+.honour{
+  padding:clamp(1.5rem,3.5vw,2.25rem) clamp(1rem,2.5vw,1.75rem);
+  border-left:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  gap:.45rem;
+}
+.honour:first-child{border-left:none}
+.honour__year{
+  font-family:var(--ff-display);
+  font-variation-settings:"wdth" 125;
+  font-weight:900;
+  font-size:clamp(1.6rem,3.6vw,2.3rem);
+  line-height:1;
+  color:var(--gold);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;
+}
+.honour__what{
+  font-family:var(--ff-display);
+  font-weight:700;
+  font-size:.94rem;
+  text-transform:uppercase;
+  letter-spacing:.045em;
+}
+.honour__rule{width:34px;height:3px;background:var(--gold);opacity:.6}
+
+@media (max-width:640px){
+  .honour{border-left:none;border-top:1px solid var(--line)}
+  .honour:first-child{border-top:none}
+}
+
+/* ============================================================
+   AREÁL
+   ============================================================ */
+.venue{
+  display:grid;
+  grid-template-columns:1.1fr 1fr;
+  gap:clamp(1.25rem,3vw,2.5rem);
+  align-items:center;
+}
+.venue__shot{
+  aspect-ratio:4/3;
+  border-radius:var(--radius);
+  position:relative;
+  overflow:hidden;
+  background:linear-gradient(160deg,#12324f,#081224 70%);
+}
+.venue__shot::after{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(90deg,#ffffff0a 0 3px,transparent 3px 42px),
+    radial-gradient(52% 42% at 50% 0%,#2a6db566,transparent 70%);
+}
+.venue__list{list-style:none;margin:1.25rem 0 0;padding:0;display:grid;gap:.7rem}
+.venue__list li{
+  display:flex;
+  gap:.7rem;
+  align-items:flex-start;
+  font-size:.95rem;
+  color:var(--ink-2);
+}
+.venue__list li::before{
+  content:"";
+  width:7px;height:7px;
+  margin-top:.55rem;
+  background:var(--blue);
+  flex:0 0 auto;
+  transform:rotate(45deg);
+}
+.lede{color:var(--ink-2);max-width:60ch;margin:.9rem 0 0}
+
+@media (max-width:820px){.venue{grid-template-columns:1fr}}
+
+/* ============================================================
+   PARTNEŘI
+   ============================================================ */
+.partners{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:.85rem;
+}
+.partner{
+  aspect-ratio:16/7;
+  display:grid;
+  place-items:center;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  font-family:var(--ff-display);
+  font-weight:700;
+  font-size:.9rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--ink-3);
+  text-align:center;
+  padding:.5rem;
+}
+.partner--real{color:var(--ink);border-color:var(--line-strong)}
+
+/* ============================================================
+   PATIČKA
+   ============================================================ */
+.foot{
+  background:var(--band);
+  color:var(--band-ink-2);
+  padding-block:clamp(2.5rem,5vw,3.5rem);
+  border-top:3px solid var(--blue);
+}
+.foot__grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:clamp(1.5rem,4vw,3rem);
+}
+.foot h4{
+  color:var(--band-ink);
+  font-size:.8rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  font-variation-settings:"wdth" 118;
+  margin-bottom:.9rem;
+}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:.5rem;font-size:.9rem}
+.foot a{text-decoration:none}
+.foot a:hover{color:#fff}
+.foot__bottom{
+  margin-top:2.25rem;
+  padding-top:1.25rem;
+  border-top:1px solid var(--band-line);
+  font-size:.8rem;
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+@media (max-width:760px){.foot__grid{grid-template-columns:1fr}}
+
+/* poznámka o ukázkových datech */
+.legend{
+  background:var(--surface-2);
+  border:1px solid var(--line);
+  border-left:4px solid var(--gold);
+  border-radius:var(--radius);
+  padding:.9rem 1.1rem;
+  font-size:.85rem;
+  color:var(--ink-2);
+  margin-bottom:2rem;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .card:hover,.btn:hover{transform:none}
+}
+</style>
+
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="brand" href="#">
+      <svg class="brand__crest" viewBox="0 0 42 48" aria-hidden="true">
+        <path d="M2 3h38v26c0 9-8.5 14.5-19 17C10.5 43.5 2 38 2 29V3z" fill="var(--blue)" stroke="#ffffff40" stroke-width="1.5"/>
+        <path d="M2 3h38v9H2z" fill="#ffffff1f"/>
+        <text x="21" y="24" text-anchor="middle" fill="#fff" font-family="Archivo,sans-serif" font-size="12" font-weight="900">SKP</text>
+        <text x="21" y="36" text-anchor="middle" fill="#ffffffcc" font-family="Archivo,sans-serif" font-size="7.5" font-weight="700">1938</text>
+      </svg>
+      <span>
+        <span class="brand__name">SK Planá</span>
+        <span class="brand__sub">Založeno 1938</span>
+      </span>
+    </a>
+    <nav class="nav">
+      <a href="#" aria-current="page">Úvod</a>
+      <a href="#aktuality">Aktuality</a>
+      <a href="#tymy">Týmy</a>
+      <a href="#">Zápasy</a>
+      <a href="#">Klub</a>
+      <a href="#areal">Areál</a>
+      <a href="#partneri">Partneři</a>
+      <a href="#">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<nav class="nav nav--mobile">
+  <a href="#" aria-current="page">Úvod</a>
+  <a href="#aktuality">Aktuality</a>
+  <a href="#tymy">Týmy</a>
+  <a href="#">Zápasy</a>
+  <a href="#">Klub</a>
+  <a href="#areal">Areál</a>
+  <a href="#partneri">Partneři</a>
+  <a href="#">Kontakt</a>
+</nav>
+
+<div class="proposal">
+  <b>Návrh redesignu</b> — není to ostrý web. Údaje podtržené tečkovaně jsou ukázkové, čekají na doplnění.
+</div>
+
+<!-- ========== MATCHDAY ========== -->
+<section class="matchday" aria-label="Zápasy">
+  <div class="wrap matchday__grid">
+
+    <article class="mcard">
+      <div class="mcard__head">
+        <span class="eyebrow">Poslední výsledek</span>
+        <span class="mcard__comp">I.A třída Jihočeský kraj</span>
+      </div>
+      <div class="fixture">
+        <div class="club club--home">
+          <span class="club__mark">SKP</span>
+          <span class="club__name">SK Planá</span>
+        </div>
+        <div class="score demo" title="ukázkové skóre">
+          <span>2</span><span class="score__sep">:</span><span>1</span>
+        </div>
+        <div class="club">
+          <span class="club__mark">SOU</span>
+          <span class="club__name demo">Soupeř</span>
+        </div>
+      </div>
+      <div class="mcard__foot">
+        <div class="form">
+          <span class="form__label">Forma</span>
+          <div class="form__row demo" aria-label="ukázková forma">
+            <i class="f-w">V</i><i class="f-w">V</i><i class="f-d">R</i><i class="f-l">P</i><i class="f-w">V</i>
+          </div>
+        </div>
+        <a class="btn btn--ghost" href="#">Zápis o utkání</a>
+      </div>
+    </article>
+
+    <div class="matchday__rule" role="presentation"></div>
+
+    <article class="mcard">
+      <div class="mcard__head">
+        <span class="eyebrow">Příští zápas</span>
+        <span class="mcard__comp demo">Doma · Areál SK Planá</span>
+      </div>
+      <div class="fixture">
+        <div class="club club--home">
+          <span class="club__mark">SKP</span>
+          <span class="club__name">SK Planá</span>
+        </div>
+        <div class="kickoff">
+          <div class="kickoff__time demo">17:00</div>
+          <div class="kickoff__date demo">so 30. 8.</div>
+        </div>
+        <div class="club">
+          <span class="club__mark">SOU</span>
+          <span class="club__name demo">Soupeř</span>
+        </div>
+      </div>
+      <div class="mcard__foot">
+        <span>Výkop za <b class="demo">6 dní</b></span>
+        <a class="btn" href="#">Celý rozpis</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ========== AKTUALITY ========== -->
+<section class="section wrap" id="aktuality">
+  <p class="legend">
+    <b>Poznámka k obsahu:</b> titulky článků a úspěchy níže pocházejí ze snímku současného webu.
+    Skóre, soupeři, termíny a fotografie zatím doložené nejsou — proto jsou označené tečkovaně
+    nebo nahrazené barevným polem.
+  </p>
+
+  <div class="section__head">
+    <h2 class="section__title">Aktuality</h2>
+    <a class="section__link" href="#">Všechny články →</a>
+  </div>
+
+  <div class="filters" role="group" aria-label="Filtr podle týmu">
+    <button class="chip" aria-pressed="true">Vše</button>
+    <button class="chip" aria-pressed="false">A muži</button>
+    <button class="chip" aria-pressed="false">B muži</button>
+    <button class="chip" aria-pressed="false">Mladší žáci</button>
+    <button class="chip" aria-pressed="false">Starší přípravka</button>
+    <button class="chip" aria-pressed="false">Mladší přípravka</button>
+    <button class="chip" aria-pressed="false">Klub</button>
+  </div>
+
+  <div class="news">
+    <a class="card card--lead" href="#">
+      <div class="shot"><span class="shot__note">místo pro fotografii</span></div>
+      <div class="card__body">
+        <span class="tag">A muži</span>
+        <h3 class="card__title">Změny v kádru těsně před novou sezónou</h3>
+        <span class="card__meta demo">28. 3. 2026</span>
+      </div>
+    </a>
+
+    <div class="news__side">
+      <a class="card card--sm" href="#">
+        <div class="shot"><span class="shot__note">místo pro fotografii</span></div>
+        <div class="card__body">
+          <span class="tag">Klub</span>
+          <h3 class="card__title">Co se odehrálo v SK Planá v zimní pauze?</h3>
+          <span class="card__meta demo">28. 3. 2026</span>
+        </div>
+      </a>
+      <a class="card card--sm" href="#">
+        <div class="shot"><span class="shot__note">místo pro fotografii</span></div>
+        <div class="card__body">
+          <span class="tag">Mládež</span>
+          <h3 class="card__title">Dopis rodičům, hráčům a trenérům</h3>
+          <span class="card__meta demo">23. 6. 2026</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="news-row">
+    <a class="card card--sm" href="#">
+      <div class="shot"><span class="shot__note">místo pro fotografii</span></div>
+      <div class="card__body">
+        <span class="tag">Starší přípravka</span>
+        <h3 class="card__title">Rozlosování zimní ligy — Planá na první příčce!</h3>
+        <span class="card__meta demo">leden 2026</span>
+      </div>
+    </a>
+    <a class="card card--sm" href="#">
+      <div class="shot"><span class="shot__note">místo pro fotografii</span></div>
+      <div class="card__body">
+        <span class="tag">Mladší přípravka</span>
+        <h3 class="card__title">Rozlosování zimní ligy — Meteor Tábor jsou suverénní</h3>
+        <span class="card__meta demo">leden 2026</span>
+      </div>
+    </a>
+    <a class="card card--sm" href="#">
+      <div class="shot"><span class="shot__note">místo pro fotografii</span></div>
+      <div class="card__body">
+        <span class="tag">Mladší žáci</span>
+        <h3 class="card__title">Hodnocení podzimní části sezóny: ročníky 2013—2014</h3>
+        <span class="card__meta demo">prosinec 2025</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ========== TÝMY ========== -->
+<section class="section wrap" id="tymy" style="padding-top:0">
+  <div class="section__head">
+    <h2 class="section__title">Naše týmy</h2>
+    <a class="section__link" href="#">Všechny kategorie →</a>
+  </div>
+  <div class="teams">
+    <a class="team" href="#">
+      <span class="team__name">A muži</span>
+      <span class="team__comp">I.A třída Jihočeský kraj</span>
+    </a>
+    <a class="team" href="#">
+      <span class="team__name">B muži</span>
+      <span class="team__comp demo">soutěž k doplnění</span>
+    </a>
+    <a class="team" href="#">
+      <span class="team__name">Mladší žáci</span>
+      <span class="team__comp">ročníky 2013—2014</span>
+    </a>
+    <a class="team" href="#">
+      <span class="team__name">Starší přípravka</span>
+      <span class="team__comp demo">soutěž k doplnění</span>
+    </a>
+    <a class="team" href="#">
+      <span class="team__name">Mladší přípravka</span>
+      <span class="team__comp demo">soutěž k doplnění</span>
+    </a>
+  </div>
+</section>
+
+<!-- ========== ÚSPĚCHY ========== -->
+<section class="honours" aria-label="Úspěchy klubu">
+  <div class="wrap">
+    <div class="honours__grid">
+      <div class="honour">
+        <span class="honour__year">2013/2014</span>
+        <span class="honour__rule"></span>
+        <span class="honour__what">Vítěz okresního přeboru</span>
+      </div>
+      <div class="honour">
+        <span class="honour__year">2015/2016</span>
+        <span class="honour__rule"></span>
+        <span class="honour__what">Vítěz I.B třídy</span>
+      </div>
+      <div class="honour">
+        <span class="honour__year">2021/2022</span>
+        <span class="honour__rule"></span>
+        <span class="honour__what">Finalista poháru KFS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== AREÁL ========== -->
+<section class="section wrap" id="areal">
+  <div class="venue">
+    <div class="venue__shot" role="img" aria-label="Místo pro fotografii areálu"></div>
+    <div>
+      <span class="eyebrow" style="color:var(--blue)">Areál</span>
+      <h2 class="section__title" style="margin-top:.6rem">Hřiště na kraji Plané</h2>
+      <p class="lede">
+        Klub hraje na místě, kde se v Plané kope od doby těsně po druhé světové válce.
+        Areál prošel rekonstrukcí a dnes k němu patří i nová umělá tráva s osvětlením.
+      </p>
+      <ul class="venue__list">
+        <li>Umělá tráva s osvětlením</li>
+        <li>Tribuna pro 120 diváků</li>
+        <li>Kabiny, klubovna a regenerace</li>
+        <li>Občerstvení pro návštěvníky</li>
+      </ul>
+      <p style="margin-top:1.5rem"><a class="btn" href="#">Jak se k nám dostat</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PARTNEŘI ========== -->
+<section class="section wrap" id="partneri" style="padding-top:0">
+  <div class="section__head">
+    <h2 class="section__title">Partneři klubu</h2>
+    <a class="section__link" href="#">Staňte se partnerem →</a>
+  </div>
+  <div class="partners">
+    <div class="partner partner--real">Typodesign</div>
+    <div class="partner demo">Partner</div>
+    <div class="partner demo">Partner</div>
+    <div class="partner demo">Partner</div>
+    <div class="partner demo">Partner</div>
+    <div class="partner demo">Partner</div>
+  </div>
+</section>
+
+<!-- ========== PATIČKA ========== -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <a class="brand" href="#" style="margin-bottom:1rem">
+          <svg class="brand__crest" viewBox="0 0 42 48" aria-hidden="true">
+            <path d="M2 3h38v26c0 9-8.5 14.5-19 17C10.5 43.5 2 38 2 29V3z" fill="var(--blue)" stroke="#ffffff40" stroke-width="1.5"/>
+            <path d="M2 3h38v9H2z" fill="#ffffff1f"/>
+            <text x="21" y="24" text-anchor="middle" fill="#fff" font-family="Archivo,sans-serif" font-size="12" font-weight="900">SKP</text>
+            <text x="21" y="36" text-anchor="middle" fill="#ffffffcc" font-family="Archivo,sans-serif" font-size="7.5" font-weight="700">1938</text>
+          </svg>
+          <span>
+            <span class="brand__name" style="color:var(--band-ink)">SK Planá</span>
+            <span class="brand__sub">Modrý balet z Plané</span>
+          </span>
+        </a>
+        <p style="font-size:.9rem;max-width:38ch;margin:0">
+          Fotbalový klub z Plané u Českých Budějovic. Muži, dorost a všechny kategorie mládeže.
+        </p>
+      </div>
+      <div>
+        <h4>Klub</h4>
+        <ul>
+          <li><a href="#">O klubu</a></li>
+          <li><a href="#">Historie</a></li>
+          <li><a href="#areal">Areál</a></li>
+          <li><a href="#">Nábor mládeže</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li class="demo">Adresa k doplnění</li>
+          <li class="demo">Telefon k doplnění</li>
+          <li class="demo">E-mail k doplnění</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 SK Planá</span>
+      <span>Návrh nové podoby webu</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll(".filters").forEach(function(group){
+    group.addEventListener("click", function(e){
+      var btn = e.target.closest(".chip");
+      if(!btn) return;
+      group.querySelectorAll(".chip").forEach(function(c){
+        c.setAttribute("aria-pressed", String(c === btn));
+      });
+    });
+  });
+</script>
